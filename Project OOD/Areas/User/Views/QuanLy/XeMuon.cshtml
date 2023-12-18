@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Project_OOD.Models.MUONXE>
+
+@{
+    ViewBag.Title = "Xe Mượn";
+    Layout = "~/Areas/User/Views/Shared/Layout_User.cshtml";
+}
+
+<style>
+    h1 {
+        color: #333;
+    }
+
+    table {
+        width: 80%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        margin-left:100px;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h2 style="text-align:center; margin-top:30px; margin-bottom:50px">Thông Tin Xe Mượn</h2>
+
+<table>
+    <tr>
+        <th>Loại Xe</th>
+        <th>Mã Xe</th>
+        <th>Ngày Thuê</th>
+        <th>Đơn Giá</th>
+        <th>Thao Tác</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.XE.LOAIXE.TenLoai</td>
+            <td>@item.MaXeMuon</td>
+            <td>@item.ThoiGianMuon</td>
+            <td>@item.XE.LOAIXE.DonGia</td>
+            <td>
+                <button type="button" class="btn btn-primary"
+                        onclick="window.location.href = '@Url.Action("HuyMuon", "QuanLy", new { id = item.MaMuonXe})'">
+                    Kết Thúc Thuê
+                </button>
+            </td>
+        </tr>
+    }
+
+</table>

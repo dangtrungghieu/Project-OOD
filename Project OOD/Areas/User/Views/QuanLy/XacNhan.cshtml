@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "XacNhan";
+    Layout = "~/Areas/User/Views/Shared/Layout_User.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 style="text-align:center; margin-bottom:40px">Chọn Thời Gian Mượn Xe</h2>
+    <form id="rentalForm" action="XacNhan" method="post">
+        <div class="form-row" style="display:flex; margin-bottom:50px">
+            <div style="margin-left:150px" class="form-group col-md-4">
+                <label for="startDate">Ngày Mượn</label>
+                <input name="sNgayMuon" type="date" class="form-control" id="startDate" required>
+            </div>
+            <div style="margin-left:100px" class="form-group col-md-4">
+                <label for="startTime">Giờ Mượn</label>
+                <input name="sGioMuon" type="time" class="form-control" id="startTime" required>
+            </div>
+            <div style="margin-left:100px" class="form-group col-md-4">
+                <label for="startTime">Mã Xe</label>
+                <input name="sMaXe" value="@ViewBag.id" type="text" readonly class="form-control" id="startTime" required>
+            </div>
+        </div>
+        @*<div style="margin-left:300px; margin-bottom:30px" class="form-group col-md-4">
+                <label for="rentalCost">Tiền Thuê</label>
+                <input type="text" class="form-control" id="rentalCost" readonly>
+            </div>
+            <button style="margin-left:430px" type="button" class="btn btn-primary" onclick="calculateRentalCost()">Tính Tiền Thuê</button>*@
+        <button @*onclick="window.location.href = '@Url.Action("XacNhan","QuanLy", new {id = ViewBag.id, area = "User"})'"*@ style="margin-left:430px" type="submit" class="btn btn-primary">Xác Nhận Thuê</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Lấy thẻ input theo ID
+    var startDateInput = document.getElementById('startDate');
+
+    // Lấy ngày hiện tại
+    var currentDate = new Date();
+
+    // Format ngày thành chuỗi YYYY-MM-DD
+    var year = currentDate.getFullYear();
+    var month = (currentDate.getMonth() + 1 < 10 ? '0' : '') + (currentDate.getMonth() + 1);
+    var day = (currentDate.getDate() < 10 ? '0' : '') + currentDate.getDate();
+    var formattedDate = year + '-' + month + '-' + day;
+
+    // Đặt giá trị mặc định cho thẻ input
+    startDateInput.value = formattedDate;
+</script>
+<script>
+    // Lấy thẻ input theo ID
+    var startTimeInput = document.getElementById('startTime');
+
+    // Lấy thời gian hiện tại
+    var currentTime = new Date();
+
+    // Format giờ và phút thành chuỗi HH:mm
+    var hours = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+    var formattedTime = (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+
+    // Đặt giá trị mặc định cho thẻ input
+    startTimeInput.value = formattedTime;
+</script>
+@*<script>
+    function calculateRentalCost() {
+        var startDate = new Date(document.getElementById("startDate").value);
+        var startTime = document.getElementById("startTime").value;
+
+        var endDate = new Date(document.getElementById("endDate").value);
+        var endTime = document.getElementById("endTime").value;
+
+        // Kiểm tra xem endDate và endTime có lớn hơn startDate và startTime không
+        if (endDate > startDate || (endDate.getTime() === startDate.getTime() && endTime > startTime)) {
+            var timeDiff = Math.abs(endDate - startDate);
+            var days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+            var timeDiffInMilliseconds = Math.abs(new Date("2000/01/01 " + endTime) - new Date("2000/01/01 " + startTime));
+            var hours = timeDiffInMilliseconds / (1000 * 60 * 60);
+
+            var rentalRate = @Model.LOAIXE.DonGia; // Đơn giá mỗi giờ, có thể thay đổi
+            var totalCost = (days * 24 + hours) * rentalRate;
+
+            document.getElementById("rentalCost").value = totalCost.toFixed(2) + " VNĐ";
+        } else {
+            alert("Thời gian kết thúc phải lớn hơn thời gian bắt đầu!");
+        }
+    }
+</script>*@
+
+

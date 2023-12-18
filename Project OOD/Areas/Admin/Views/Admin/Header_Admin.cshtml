@@ -1,0 +1,36 @@
+﻿@using Project_OOD.Models;
+@{
+    NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["Admin"];
+    var a = 10;
+}
+<div class="header-admin col-lg-12">
+    <div class="col-lg-3">
+        <div class="header-admin-img">
+            <img src="~/Images/logoOOD.png" style="width: 200px; height: 240px; border-radius: 10px;" />
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="header-admin-body-all">
+            <div class="panel-admin">
+                QUẢN LÝ WEBSITE <span class="header-admin-panel">DHGo</span>
+            </div>
+            <div class="header-admin-body">
+                <div class="header-admin-mess">Xin chào,<span style="font-weight:bold;margin-left:5px">@Truncate(nGUOIDUNG.TenNguoiDung)</span></div><div class="header-admin-inbody"><i class="fas fa-user-circle"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@helper Truncate(string s)
+{
+    string[] words = s.Split(' ');
+    if (words.Length > 0)
+    {
+        string lastWord = words[words.Length - 1];
+        @lastWord
+    }
+    else
+    {
+        @s
+    }
+}

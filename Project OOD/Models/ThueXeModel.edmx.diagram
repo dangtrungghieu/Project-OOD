@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="de02782373d0431e8294a09f0ddfb373" Name="Diagram1">
+        <EntityTypeShape EntityType="QL_ThueXeModel.GOPY" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.LOAIXE" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.MUONXE" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.NGUOIDUNG" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.QUYENTRUYCAP" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.TRAM" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.XE" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_NGUOIDUNG_GOPY" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_LOAIXE_XE" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_MUONXE_NGUOIDUNG" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_MUONXE_XE" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_QUYENTRUYCAP_NGUOIDUNG" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_TRAM_XE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

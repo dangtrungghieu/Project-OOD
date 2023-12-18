@@ -1,0 +1,269 @@
+﻿@using Project_OOD.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Project_OOD.Models.XE>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+@{
+    int STT = ViewBag.StartingIndex ?? 1;
+}
+<style>
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+</style>
+<link rel="stylesheet" href="~/Areas/Admin/css/Button_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<h2 style="text-align:center; font-weight:bold; padding-top:20px;">DANH SÁCH XE</h2>
+<button onclick="window.location.href = '@Url.Action("AddXe","Xe")'" class="button-82-pushable" style="margin-left:5px;">
+    <span class="button-82-shadow"> </span>
+    <span class="button-82-edge"> </span>
+    <span class="button-82-front text" style="font-size:15px">
+        Thêm mới
+    </span>
+</button>
+<button onclick="window.location.href = '@Url.Action("LoaiXe","Xe")'" class="button-82-pushable" style="margin-left:5px;">
+    <span class="button-82-shadow"> </span>
+    <span class="button-82-edge"> </span>
+    <span class="button-82-front text" style="font-size:15px">
+        Danh sách loại xe
+    </span>
+</button>
+<div class="row">
+    <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã xe</th>
+                        <th class="text-center">Loại xe</th>
+                        <th class="text-center">Tình trạng</th>
+                        <th class="text-center">Ngày thêm</th>
+                        <th class="text-center">Trạm hiện tại</th>
+                        <th style="float:right">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="candidates-list">
+                            <td style="text-align:center;font-weight:bold;color:red">
+                                @STT
+                            </td>
+                            <td class="text-center">
+                                @item.MaXe
+                                @*<div class="thumb">
+                                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                                    </div>
+                                    <div class="candidate-list-details">
+                                        <div class="candidate-list-info">
+                                            <div class="candidate-list-title">
+                                                <h5 class="mb-0"><a href="#">Brooke Kelly</a></h5>
+                                            </div>
+                                            <div class="candidate-list-option">
+                                                <ul class="list-unstyled">
+                                                    <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
+                                                    <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            </td>
+                            <td class="text-center">
+                                @item.LOAIXE.TenLoai
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @if (item.TinhTrang.ToString() == "Chưa được mượn")
+                                {
+                                    <span class="status-span button-33" data-id="@item.MaXe" data-status="Chưa được mượn">@item.TinhTrang</span>
+                                }
+                                else if (item.TinhTrang.ToString() == "Đang được mượn")
+                                {
+                                    <span class="status-span button-71" data-id="@item.MaXe" data-status="Đang được mượn">@item.TinhTrang</span>
+                                }
+                                else if (item.TinhTrang.ToString() == "Đang sửa chữa")
+                                {
+                                    <span class="status-span button-62" data-id="@item.MaXe" data-status="Đang sửa chữa">@item.TinhTrang</span>
+                                }
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @Html.FormatValue(item.NgayThem, "{0:dd/MM/yyyy}")
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @if(item.MaTram == null)
+                                    {
+                                        <span>Không có trạm</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.TRAM.MaTram</span>
+                                    }
+                            </td>
+                            <td>
+                                <ul class="list-unstyled mb-0 d-flex justify-content-end" style="align-items:center">
+                                    <li><a href="#" class="text-primary detail-link" data-id="@item.MaXe" data-toggle="tooltip" title="View" data-original-title="View"><i class="far fa-eye"></i></a></li>
+                                    <li><a href="@Url.Action("Edit_Xe","Xe", new { id = item.MaXe})" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                                    <li><a href="@Url.Action("Delete_Xe","Xe", new { id = item.MaXe})" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        STT++;
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        <div class="MenuTrang pagedList">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("Index", "Xe", new { iMaCD = ViewBag.MaCD, page = page })
+            )
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalXe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-weight:bold">Thông tin Xe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="border-radius:5px;font-weight:bold; color:red">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txtMaXe">Mã xe</label>
+                    <input type="text" class="form-control" id="txtMaXe" placeholder="Mã xe ...." readonly />
+                </div>
+                <div class="form-group">
+                    <label for="txtTinhTrang">Tình trạng</label>
+                    <input type="text" class="form-control" id="txtTinhTrang" placeholder="Tình trạng ...." readonly />
+                </div>
+                <div class="form-group">
+                    <input type="text" id="maXe" value="" hidden />
+                    <label for="txtTenLoai">Loại Xe</label>
+                    <input type="text" class="form-control" id="txtTenLoai" placeholder="Loại xe ...." readonly />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseModal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.status-span').click(function () {
+            var vehicleId = $(this).data('id');
+
+            $.ajax({
+                url: '/Xe/UpdateSessionStatus',
+                type: 'POST',
+                data: { vehicleId: vehicleId },
+                success: function (response) {
+                    var spanToUpdate = $('.status-span[data-id="' + vehicleId + '"]');
+                    var newStatus = response;
+
+                    // Xóa tất cả các class button-XX hiện có của span
+                    spanToUpdate.removeClass('button-33 button-71 button-62');
+
+                    // Thêm class mới phù hợp với trạng thái mới của xe
+                    if (newStatus === "Chưa được mượn") {
+                        spanToUpdate.addClass('button-33');
+                    } else if (newStatus === "Đang được mượn") {
+                        spanToUpdate.addClass('button-71');
+                    } else if (newStatus === "Đang sửa chữa") {
+                        spanToUpdate.addClass('button-62');
+                    }
+
+                    // Cập nhật lại văn bản của span
+                    spanToUpdate.text(newStatus);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const detailLinks = document.querySelectorAll('.detail-link');
+
+        detailLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const xeId = this.getAttribute('data-id');
+                fetch(`/Xe/Details_Xe?id=${xeId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const xeInfo = data.xe;
+
+                        // Hiển thị dữ liệu trên HTML
+                        document.getElementById('maXe').value = xeInfo.MaXe;
+                        document.getElementById('txtTenLoai').value = xeInfo.TenLoai;
+                        document.getElementById('txtTinhTrang').value = xeInfo.TinhTrang;
+                        document.getElementById('txtMaXe').value = xeInfo.MaXe;
+
+                        // Hiển thị modal
+                        $('#modalXe').modal('show');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Đã xảy ra lỗi khi lấy thông tin xe');
+                    });
+            });
+        });
+
+        const closeHeaderButton = document.querySelector('#modalXe .modal-header button.close');
+        closeHeaderButton.addEventListener('click', function () {
+            $('#modalXe').modal('hide');
+        });
+
+        const closeButton = document.getElementById('btnCloseModal');
+        closeButton.addEventListener('click', function () {
+            $('#modalXe').modal('hide');
+        });
+    });
+</script>
+
+
